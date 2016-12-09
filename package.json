@@ -1,0 +1,33 @@
+{
+  "author": {
+    "email": "me@marco-alka.de",
+    "name": "Marco Alka",
+    "url": "https://marco-alka.de"
+  },
+  "bugs": {
+    "url": "https://github.com/minecrawler/result-js/issues"
+  },
+  "dependencies": {},
+  "description": "Rusty Monad Results for JS",
+  "devDependencies": {},
+  "keywords": [
+    "Rust",
+    "Result",
+    "Monad"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "maruru",
+      "email": "me@marco-alka.de"
+    }
+  ],
+  "name": "result-js",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minecrawler/result-js.git"
+  },
+  "version": "0.1.0"
+}
