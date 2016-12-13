@@ -1,4 +1,7 @@
 {
+  "name": "result-js",
+  "version": "0.1.0",
+  "description": "Rusty Monad Results for JS",
   "author": {
     "email": "me@marco-alka.de",
     "name": "Marco Alka",
@@ -8,8 +11,9 @@
     "url": "https://github.com/minecrawler/result-js/issues"
   },
   "dependencies": {},
-  "description": "Rusty Monad Results for JS",
-  "devDependencies": {},
+  "devDependencies": {
+    "tape": "4.6.x"
+  },
   "keywords": [
     "Rust",
     "Result",
@@ -23,11 +27,12 @@
       "email": "me@marco-alka.de"
     }
   ],
-  "name": "result-js",
   "optionalDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/minecrawler/result-js.git"
   },
-  "version": "0.1.0"
+  "scripts": {
+    "test": "node test.js"
+  }
 }

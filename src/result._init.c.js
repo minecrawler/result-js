@@ -28,7 +28,7 @@ require('../interface/result.h').prototype._init = function ($val, $err) {
         }
         else {
 
-            this._err = $err instanceof Error ? $err : new Error($err);
+            this._err = $err;
         }
     }
 
