@@ -7,5 +7,5 @@ require('../interface/result.h').prototype.unwrap = function () {
         return this._val;
     }
 
-    throw this._err;
+    throw new Error(this._err);
 };

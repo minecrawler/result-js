@@ -3,22 +3,26 @@
 'use strict';
 
 const Result = require('.');
-const Tape = require('tape');
+const TAP    = require('tap');
 
 
+TAP.test('Create Results', $t => {
 
-
-Tape.test('Create Results', $t => {
-
-    $t.plan(2);
+    $t.plan(4);
 
     $t.ok(Result.fromError('TEST'), 'Create Result from Error');
     $t.ok(Result.fromSuccess('TEST'), 'Create Result from Success');
 
+    $t.ok((new Result()).isErr(), 'Create Result with neither val nor err');
+
+    const tmp = new Result('TEST');
+    tmp._init();
+    $t.equal(tmp.unwrap(), 'TEST', 'Re-Initialization not possible');
+
     $t.end();
 });
 
-Tape.test('Success Tests', $t => {
+TAP.test('Success Tests', $t => {
 
     $t.plan(9);
 
@@ -45,7 +49,7 @@ Tape.test('Success Tests', $t => {
     $t.end();
 });
 
-Tape.test('Error Tests', $t => {
+TAP.test('Error Tests', $t => {
 
     $t.plan(9);
 
@@ -54,7 +58,7 @@ Tape.test('Error Tests', $t => {
     $t.notOk(e.isOk(), '!Error.isOK');
     $t.ok(e.isErr(), 'Error.notOk');
 
-    $t.throws(e.unwrap, 'Check Error.unwrap');
+    $t.throws(e.unwrap.bind(e), 'Check Error.unwrap');
     $t.throws(e.expect.bind(e, 'ERROR'), 'Check Error.expect');
     $t.equal(e.and('NYAN').toString(), 'Error: TEST', 'Check Error.and');
     $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'Error: TEST', 'Check Error.andThen');
@@ -73,7 +77,7 @@ Tape.test('Error Tests', $t => {
     $t.end();
 });
 
-Tape.test('Control Flow Tests', $t => {
+TAP.test('Control Flow Tests', $t => {
 
     $t.plan(7);
 
