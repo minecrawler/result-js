@@ -1,4 +1,4 @@
-#!/sbin/node
+#!/usr/bin/node
 
 'use strict';
 
