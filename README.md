@@ -21,6 +21,7 @@ Instead, certain methods can be used to determine the Result type and value or e
 
     npm i result-js
 
+
 ## API
 
 All methods work just as described in the [Rust documentation](https://doc.rust-lang.org/core/result/enum.Result.html).
@@ -195,7 +196,7 @@ const myResult = syncButMightFail().or('YaY');
 const Result = require('result-js');
 
 const resultOk = Result.fromSuccess('YaY');
-const resultErr = Result.fromError('YaY');
+const resultErr = Result.fromError('NaY');
 
 // ...
 ```
@@ -216,12 +217,19 @@ if (resultErr.isOk() || !resultErr.isErr()) { console.log('Result is OK; this wi
 ```js
 // ...
 
-var myResult = resultOk.unwrap();     // `unwrap` will throw if the Result is an Error
-myResult = resultOk.expect('uh oh!'); // `expect` will also throw if the Result is an Error, but add a message
-myResult = resultOk.and('SURPRISE!'); // `and` will return the passed value instead of the Ok-value if the Result is not an error
+// `unwrap` will throw if the Result is an Error
+var myResult = resultOk.unwrap();
+
+// `expect` will also throw if the Result is an Error, but add a message
+myResult = resultOk.expect('uh oh!');
+
+// `and` will return the passed value instead of the Ok-value if the Result is not an error
+myResult = resultOk.and('SURPRISE!');
 myResult = resultOk.andThen(res => res + ' for Result!');
 
-myResult = resultErr.or('no error any more!'); // `or` will return the passed value instead of the Result's error value in case the Result was an error
+
+// `or` will return the passed value instead of the Result's error value in case the Result was an error
+myResult = resultErr.or('no error any more!');
 myResult = resultErr.orElse(err => new Error(err));
 
 // Or just a very simple match, just what you already know from then-ables, like Promises

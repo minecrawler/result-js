@@ -110,6 +110,7 @@ module.exports = class Result {
     /**
      * JS convenience then-like handler
      *
+     * @alias then
      * @param {ResultHandler} okHandler
      * @param {ResultHandler} errHandler
      */

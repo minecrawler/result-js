@@ -1,6 +1,9 @@
 'use strict';
 
-require('../interface/result.h').prototype.match = function ($okHandler, $errHandler) {
+const hProto = require('../interface/result.h').prototype;
+
+
+hProto.match = function ($okHandler, $errHandler) {
 
     if (this.isOk()) {
 
@@ -11,3 +14,7 @@ require('../interface/result.h').prototype.match = function ($okHandler, $errHan
         $errHandler(this._err);
     }
 };
+
+
+// Aliases
+hProto.then = hProto.match;
