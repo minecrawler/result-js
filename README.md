@@ -10,7 +10,7 @@ They, however, pose the risk that error opportunities are not handled by the use
 hence pose the risk of fatal runtime errors.
 
 In order to make a user aware of the risk of failure, monad error management was created.
-One of the most prominent usages of such a result system in `core::result::Result` of the programming language Rust.
+One of the most prominent usages of such a result system is `core::result::Result` of the programming language Rust.
 
 This module is based on the Rust implementation, but brings some changes in order to better use it in JS.
 One of the major differences is, that there are no `Ok()` and `Err()`.
@@ -166,7 +166,7 @@ try {
   myResult = syncButMightFail();
 }
 catch($e) {
-  myResult = $e.toString();
+  console.log($e.toString()); // don't even care...
 }
 
 
