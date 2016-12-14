@@ -39,3 +39,6 @@ jspm_packages
 
 # JETBRAINS
 .idea
+
+# Coveralls
+.coveralls.yml
