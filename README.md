@@ -181,7 +181,7 @@ const syncButMightFail = () => {
   return Result.fromError('NaY!');
 };
 
-const myResult = syncButMightFail.or('YaY');
+const myResult = syncButMightFail().or('YaY');
 ```
 
 
