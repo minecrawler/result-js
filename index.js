@@ -7,6 +7,7 @@ require('./src/result.andThen.c');
 require('./src/result.expect.c');
 require('./src/result.fromError.c');
 require('./src/result.fromSuccess.c');
+require('./src/result.fromTry.c');
 require('./src/result.isErr.c');
 require('./src/result.isOk.c');
 require('./src/result.match.c');

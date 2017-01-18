@@ -24,9 +24,10 @@ TAP.test('Create Results', $t => {
 
 TAP.test('Success Tests', $t => {
 
-    $t.plan(9);
+    $t.plan(11);
 
     const s = Result.fromSuccess('TEST');
+    const s_try = Result.fromTry(() => 5);
 
     $t.ok(s.isOk(), 'Success.isOK');
     $t.notOk(s.isErr(), '!Success.notOk');
@@ -46,14 +47,18 @@ TAP.test('Success Tests', $t => {
         $t.fail('Check Success.match');
     });
 
+    $t.ok(s_try.isOk(), 'Try.isOk');
+    $t.equal(s_try.or(-1), 5, 'Try value');
+
     $t.end();
 });
 
 TAP.test('Error Tests', $t => {
 
-    $t.plan(9);
+    $t.plan(11);
 
     const e = Result.fromError('TEST');
+    const e_try = Result.fromTry(() => { throw 'uh oh'; });
 
     $t.notOk(e.isOk(), '!Error.isOK');
     $t.ok(e.isErr(), 'Error.notOk');
@@ -73,6 +78,9 @@ TAP.test('Error Tests', $t => {
 
         $t.equal($err.toString(), 'TEST', 'Check Error.match');
     });
+
+    $t.ok(e_try.isErr(), 'Try.isErr');
+    $t.equal(e_try.or(-1), -1, 'Try value');
 
     $t.end();
 });

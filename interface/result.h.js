@@ -43,6 +43,14 @@ module.exports = class Result {
     static fromError(err) { /* throw 'Not Implemented: Result::fromError!'; */ };
 
     /**
+     * Similar to Rust's `try!`, but only returns a {Result} to the caller
+     *
+     * @param {function} fun Function to execute
+     * @returns {Result}
+     */
+    static fromTry(fun) { /* throw 'Not Implemented: Result::try!'; */ };
+
+    /**
      * Returns true if the result is Ok.
      *
      * @returns {boolean}
