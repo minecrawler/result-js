@@ -116,11 +116,18 @@ module.exports = class Result {
     expect(msg) { /* throw 'Not Implemented: Result::expect!'; */ };
 
     /**
-     * JS convenience then-like handler
+     * JS convenience then-like handler (sync)
      *
-     * @alias then
      * @param {ResultHandler} okHandler
      * @param {ResultHandler} errHandler
      */
     match(okHandler, errHandler) { /* throw 'Not Implemented: Result::match!'; */ };
+
+    /**
+     * JS convenience then-like handler (async)
+     *
+     * @param {ResultHandler} okHandler
+     * @param {ResultHandler} errHandler
+     */
+    then(okHandler, errHandler) { /* throw 'Not Implemented: Result::then!'; */ };
 };

@@ -14,7 +14,3 @@ hProto.match = function ($okHandler, $errHandler) {
         $errHandler(this._err);
     }
 };
-
-
-// Aliases
-hProto.then = hProto.match;
