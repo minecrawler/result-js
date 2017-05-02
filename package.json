@@ -20,7 +20,7 @@
     "Result",
     "Monad"
   ],
-  "license": "MIT",
+  "license": "MPL-2.0",
   "main": "index.js",
   "maintainers": [
     {

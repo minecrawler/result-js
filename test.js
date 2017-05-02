@@ -105,7 +105,7 @@ TAP.test('Control Flow Tests', $t => {
 });
 
 
-TAP.test('Globals Tests' $t => {
+TAP.test('Globals Tests', $t => {
 
     $t.plan(4);
 
@@ -116,4 +116,4 @@ TAP.test('Globals Tests' $t => {
     $t.ok(Err('test').isErr(), 'check global.Err isErr');
 
     $t.end();
-);
+});
