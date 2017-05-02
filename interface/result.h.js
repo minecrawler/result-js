@@ -51,6 +51,11 @@ module.exports = class Result {
     static fromTry(fun) { /* throw 'Not Implemented: Result::try!'; */ };
 
     /**
+     * Register global convenience-functions Ok() and Err()
+     */
+    static registerGlobals() {};
+
+    /**
      * Returns true if the result is Ok.
      *
      * @returns {boolean}
