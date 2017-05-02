@@ -1,6 +1,6 @@
 'use strict';
 
-var h = require('../interface/result.h');
+const h = require('../interface/result.h');
 
 
 h.fromError = function ($err) {

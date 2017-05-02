@@ -23,7 +23,15 @@
  * @type {Result}
  */
 module.exports = class Result {
-    
+
+    /**
+     * Create new Result from either a value or an error
+     * Leave the one you don't need undefined
+     * You have to pass something to exactly one of the two
+     * 
+     * @param {*} val
+     * @param {*} err
+     */
     constructor (val, err) { this._init(val, err); };
 
     /**
@@ -32,7 +40,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {Result}
      */
-    static fromSuccess(val) { /* throw 'Not Implemented: Result::fromSuccess!'; */ };
+    static fromSuccess(val) {};
 
     /**
      * Create error Result with a return value.
@@ -40,7 +48,7 @@ module.exports = class Result {
      * @param {*} err
      * @returns {Result}
      */
-    static fromError(err) { /* throw 'Not Implemented: Result::fromError!'; */ };
+    static fromError(err) {};
 
     /**
      * Similar to Rust's `try!`, but only returns a {Result} to the caller
@@ -48,7 +56,7 @@ module.exports = class Result {
      * @param {function} fun Function to execute
      * @returns {Result}
      */
-    static fromTry(fun) { /* throw 'Not Implemented: Result::try!'; */ };
+    static fromTry(fun) {};
 
     /**
      * Register global convenience-functions Ok() and Err()
@@ -60,14 +68,14 @@ module.exports = class Result {
      *
      * @returns {boolean}
      */
-    isOk() { /* throw 'Not Implemented: Result::isOk!'; */ };
+    isOk() {};
 
     /**
      * Returns true if the result is Err.
      *
      * @returns {boolean}
      */
-    isErr() { /* throw 'Not Implemented: Result::isErr!'; */ };
+    isErr() {};
 
     /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
@@ -75,7 +83,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {*}
      */
-    and(val) { /* throw 'Not Implemented: Result::and!'; */ };
+    and(val) {};
 
     /**
      * Calls `resultEmitter` if the result is Ok, otherwise returns the Err value of itself.
@@ -84,7 +92,7 @@ module.exports = class Result {
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
-    andThen(resultEmitter) { /* throw 'Not Implemented: Result::andThen!'; */ };
+    andThen(resultEmitter) {};
 
     /**
      * Returns `val` if the result is Err, otherwise returns the Ok value of itself.
@@ -92,7 +100,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {*}
      */
-    or(val) { /* throw 'Not Implemented: Result::or!'; */ };
+    or(val) {};
 
     /**
      * Calls `resultEmitter` if the result is Err, otherwise returns the Ok value of itself.
@@ -101,7 +109,7 @@ module.exports = class Result {
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
-    orElse(resultEmitter) { /* throw 'Not Implemented: Result::orElse!'; */ };
+    orElse(resultEmitter) {};
 
     /**
      * Unwraps a result, yielding the content of an Ok.
@@ -109,7 +117,7 @@ module.exports = class Result {
      * @throws if the value is an Err, with a message provided by the Err's value.
      * @returns {*}
      */
-    unwrap() { /* throw 'Not Implemented: Result::unwrap!'; */ };
+    unwrap() {};
 
     /**
      * Unwraps a result, yielding the content of an Ok.
@@ -118,7 +126,7 @@ module.exports = class Result {
      * @param {String} msg
      * @returns {*}
      */
-    expect(msg) { /* throw 'Not Implemented: Result::expect!'; */ };
+    expect(msg) {};
 
     /**
      * JS convenience then-like handler (sync)
@@ -126,7 +134,7 @@ module.exports = class Result {
      * @param {ResultHandler} okHandler
      * @param {ResultHandler} errHandler
      */
-    match(okHandler, errHandler) { /* throw 'Not Implemented: Result::match!'; */ };
+    match(okHandler, errHandler) {};
 
     /**
      * JS convenience then-like handler (async)
@@ -134,5 +142,5 @@ module.exports = class Result {
      * @param {ResultHandler} okHandler
      * @param {ResultHandler} errHandler
      */
-    then(okHandler, errHandler) { /* throw 'Not Implemented: Result::then!'; */ };
+    then(okHandler, errHandler) {};
 };
