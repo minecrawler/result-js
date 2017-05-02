@@ -19,7 +19,7 @@ Instead, certain methods can be used to determine the Result type and value or e
 
 ## Installation
 
-    npm i result-js
+    npm i result-js --save
 
 
 ## API
@@ -34,6 +34,14 @@ All methods work just as described in the [Rust documentation](https://doc.rust-
  */
 module.exports = class Result {
 
+    /**
+     * Create new Result from either a value or an error
+     * Leave the one you don't need undefined
+     * You have to pass something to exactly one of the two
+     * 
+     * @param {*} val
+     * @param {*} err
+     */
     constructor (val, err) { this._init(val, err); };
 
     /**
@@ -42,7 +50,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {Result}
      */
-    static fromSuccess(val) { /* throw 'Not Implemented: Result::fromSuccess!'; */ };
+    static fromSuccess(val) {};
 
     /**
      * Create error Result with a return value.
@@ -50,21 +58,34 @@ module.exports = class Result {
      * @param {*} err
      * @returns {Result}
      */
-    static fromError(err) { /* throw 'Not Implemented: Result::fromError!'; */ };
+    static fromError(err) {};
+
+    /**
+     * Similar to Rust's `try!`, but only returns a {Result} to the caller
+     *
+     * @param {function} fun Function to execute
+     * @returns {Result}
+     */
+    static fromTry(fun) {};
+
+    /**
+     * Register global convenience-functions Ok() and Err()
+     */
+    static registerGlobals() {};
 
     /**
      * Returns true if the result is Ok.
      *
      * @returns {boolean}
      */
-    isOk() { /* throw 'Not Implemented: Result::isOk!'; */ };
+    isOk() {};
 
     /**
      * Returns true if the result is Err.
      *
      * @returns {boolean}
      */
-    isErr() { /* throw 'Not Implemented: Result::isErr!'; */ };
+    isErr() {};
 
     /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
@@ -72,7 +93,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {*}
      */
-    and(val) { /* throw 'Not Implemented: Result::and!'; */ };
+    and(val) {};
 
     /**
      * Calls `resultEmitter` if the result is Ok, otherwise returns the Err value of itself.
@@ -81,7 +102,7 @@ module.exports = class Result {
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
-    andThen(resultEmitter) { /* throw 'Not Implemented: Result::andThen!'; */ };
+    andThen(resultEmitter) {};
 
     /**
      * Returns `val` if the result is Err, otherwise returns the Ok value of itself.
@@ -89,7 +110,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {*}
      */
-    or(val) { /* throw 'Not Implemented: Result::or!'; */ };
+    or(val) {};
 
     /**
      * Calls `resultEmitter` if the result is Err, otherwise returns the Ok value of itself.
@@ -98,7 +119,7 @@ module.exports = class Result {
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
-    orElse(resultEmitter) { /* throw 'Not Implemented: Result::orElse!'; */ };
+    orElse(resultEmitter) {};
 
     /**
      * Unwraps a result, yielding the content of an Ok.
@@ -106,7 +127,7 @@ module.exports = class Result {
      * @throws if the value is an Err, with a message provided by the Err's value.
      * @returns {*}
      */
-    unwrap() { /* throw 'Not Implemented: Result::unwrap!'; */ };
+    unwrap() {};
 
     /**
      * Unwraps a result, yielding the content of an Ok.
@@ -115,16 +136,23 @@ module.exports = class Result {
      * @param {String} msg
      * @returns {*}
      */
-    expect(msg) { /* throw 'Not Implemented: Result::expect!'; */ };
+    expect(msg) {};
 
     /**
-     * JS convenience then-like handler
+     * JS convenience then-like handler (sync)
      *
-     * @alias then
      * @param {ResultHandler} okHandler
      * @param {ResultHandler} errHandler
      */
-    match(okHandler, errHandler) { /* throw 'Not Implemented: Result::match!'; */ };
+    match(okHandler, errHandler) {};
+
+    /**
+     * JS convenience then-like handler (async)
+     *
+     * @param {ResultHandler} okHandler
+     * @param {ResultHandler} errHandler
+     */
+    then(okHandler, errHandler) {};
 };
 
 /**
@@ -148,7 +176,7 @@ module.exports = class Result {
 
 ## Simple Example
 
-In the following example, you can see that the traditional way needs a lot more LoC, myResult is `var` and you might forget to use `try..catch`.
+In the following example, you can see that the traditional way needs a lot more LoC, the type of myResult is not pinned and you might forget to use `try..catch`.
 The Result Monad helps to clean this mess up!
 
 For more simple examples, please take a look at `./test.js`, on which Travis CI and Coveralls tests are based!
@@ -163,7 +191,7 @@ const syncButMightFail = () => {
   throw 'NaY!';
 };
 
-var myResult = 'YaY';
+let myResult = 'YaY';
 try {
   myResult = syncButMightFail();
 }
@@ -198,6 +226,21 @@ const Result = require('result-js');
 
 const resultOk = Result.fromSuccess('YaY');
 const resultErr = Result.fromError('NaY');
+
+// ...
+```
+
+
+### Register Ok() and Err()
+
+```js
+// ...
+
+// After the following line, Ok() and Err() will be available on a global level.
+// That means that you can do stuff, like
+//     return Ok(val);
+//     return Err('failed!');
+Result.registerGlobals();
 
 // ...
 ```
@@ -248,13 +291,13 @@ resultErr.match(okVal => {
 // ...
 
 console.log(
-  resultOk.andThen(() => Result.fromSuccess(2)).andThen(val => val * val)
+  resultOk.andThen(() => Ok(2)).andThen(val => val * val)
 );
 // -> 4
 
 
 console.log(
-  resultErr.orElse(() => Result.fromSuccess(3)).andThen(val => val * val)
+  resultErr.orElse(() => Ok(3)).andThen(val => val * val)
 );
 // -> 9
 ```

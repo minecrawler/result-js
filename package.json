@@ -1,6 +1,6 @@
 {
   "name": "result-js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Rusty Monad Results for JS",
   "author": {
     "email": "me@marco-alka.de",
@@ -20,7 +20,7 @@
     "Result",
     "Monad"
   ],
-  "license": "MIT",
+  "license": "MPL-2.0",
   "main": "index.js",
   "maintainers": [
     {

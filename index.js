@@ -13,6 +13,7 @@ require('./src/result.isOk.c');
 require('./src/result.match.c');
 require('./src/result.or.c');
 require('./src/result.orElse.c');
+require('./src/result.registerGlobals.c');
 require('./src/result.unwrap.c');
 
 
