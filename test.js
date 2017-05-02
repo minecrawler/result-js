@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
 'use strict';
 
@@ -103,3 +103,17 @@ TAP.test('Control Flow Tests', $t => {
 
     $t.end();
 });
+
+
+TAP.test('Globals Tests' $t => {
+
+    $t.plan(4);
+
+    Result.registerGlobals();
+    $t.equal(typeof Ok, 'function', 'Check global.Ok()');
+    $t.equal(typeof Err, 'function', 'Check global.Err()');
+    $t.ok(Ok('test').isOk(), 'check global.Ok isOk');
+    $t.ok(Err('test').isErr(), 'check global.Err isErr');
+
+    $t.end();
+);
