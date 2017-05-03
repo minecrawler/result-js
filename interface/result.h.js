@@ -87,6 +87,15 @@ module.exports = class Result {
     map(op) {};
 
     /**
+     * Maps a Result<T, E> to Result<T, F> by applying a function to a contained Err value, leaving an Ok value untouched.
+     * This function can be used to pass through a successful result while handling an error.
+     * 
+     * @param {function} op
+     * @returns {Result}
+     */
+    mapErr(op) {};
+
+    /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
      *
      * @param {*} val
