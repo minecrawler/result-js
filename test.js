@@ -24,7 +24,7 @@ TAP.test('Create Results', $t => {
 
 TAP.test('Success Tests', $t => {
 
-    $t.plan(12);
+    $t.plan(13);
 
     const s = Result.fromSuccess('TEST');
     const s_try = Result.fromTry(() => 5);
@@ -35,6 +35,7 @@ TAP.test('Success Tests', $t => {
     $t.equal(s.unwrap(), 'TEST', 'Check Success.unwrap');
     $t.throws(s.unwrapErr.bind(s), 'Check Ok.unwrapErr');
     $t.equal(s.expect(), 'TEST', 'Check Success.expect');
+    $t.throws(s.expectErr.bind(s), 'Check Ok.expectErr');
     $t.equal(s.and('NYAN'), 'NYAN', 'Check Success.and');
     $t.equal(s.andThen($v => $v.toString() + '2'), 'TEST2', 'Check Success.andThen');
     $t.equal(s.or('FAIL'), 'TEST', 'Check Success.or');
