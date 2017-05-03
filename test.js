@@ -119,9 +119,29 @@ TAP.test('Globals Tests', $t => {
 
 TAP.test('Misc Tests', $t => {
 
-    $t.plan(2);
+    $t.plan(6);
 
-    let probe = Result.fromSuccess('test');
+    const good = Result.fromSuccess('test');
+    const bad = Result.fromError('test');
+
+    $t.equal(good.map($val => $val + '_ok').unwrap(), 'test_ok', 'Result.map Test on Ok');
+    bad.map($val => $val + '_ok').match($v => {
+
+        $t.fail('Result.map Test on Err');
+    }, $e => {
+
+        $t.equal($e, 'test', 'Result.map Test on Err');
+    });
+
+    $t.equal(good.mapErr($val => $val + '_ok').unwrap(), 'test', 'Result.mapErr Test on Ok');
+    bad.mapErr($val => $val + '_ok').match($v => {
+
+        $t.fail('Result.mapErr Test on Err');
+    }, $e => {
+
+        $t.equal($e, 'test_ok', 'Result.mapErr Test on Err');
+    });
+
     let c = 0;
     for (const v of probe.iter()) {
 
@@ -130,8 +150,6 @@ TAP.test('Misc Tests', $t => {
 
     $t.equal(c, 1, 'Ok.iter() Test');
 
-
-    probe = Result.fromError('test');
     c = 0;
     for (const v of probe.iter()) {
 
