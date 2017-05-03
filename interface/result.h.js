@@ -94,6 +94,14 @@ module.exports = class Result {
      * @returns {Result}
      */
     mapErr(op) {};
+    
+    /**
+     * Returns an iterator over the possibly contained value.
+     * The iterator yields one value if the result is Ok, otherwise none.
+     * 
+     * @returns {Iterable.<*>}
+     */
+    iter() {};
 
     /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.

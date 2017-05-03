@@ -104,7 +104,6 @@ TAP.test('Control Flow Tests', $t => {
     $t.end();
 });
 
-
 TAP.test('Globals Tests', $t => {
 
     $t.plan(4);
@@ -114,6 +113,32 @@ TAP.test('Globals Tests', $t => {
     $t.equal(typeof Err, 'function', 'Check global.Err()');
     $t.ok(Ok('test').isOk(), 'check global.Ok isOk');
     $t.ok(Err('test').isErr(), 'check global.Err isErr');
+
+    $t.end();
+});
+
+TAP.test('Misc Tests', $t => {
+
+    $t.plan(2);
+
+    let probe = Result.fromSuccess('test');
+    let c = 0;
+    for (const v of probe.iter()) {
+
+        c++;
+    }
+
+    $t.equal(c, 1, 'Ok.iter() Test');
+
+
+    probe = Result.fromError('test');
+    c = 0;
+    for (const v of probe.iter()) {
+
+        c++;
+    }
+
+    $t.equal(c, 0, 'Err.iter() Test');
 
     $t.end();
 });
