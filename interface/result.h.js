@@ -122,7 +122,9 @@ module.exports = class Result {
 
     /**
      * Returns `val` if the result is Err, otherwise returns the Ok value of itself.
+     * Since there are no strict types in JS, this method and unwrapOr are identical.
      *
+     * @alias unwrapOr
      * @param {*} val
      * @returns {*}
      */
@@ -131,7 +133,9 @@ module.exports = class Result {
     /**
      * Calls `resultEmitter` if the result is Err, otherwise returns the Ok value of itself.
      * This function can be used for control flow based on result values.
+     * Since there are no strict types in JS, this method and unwrapOrElse are identical.
      *
+     * @alias unwrapOrElse
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
