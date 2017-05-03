@@ -78,6 +78,32 @@ module.exports = class Result {
     isErr() {};
 
     /**
+     * Maps a Result<T, E> to Result<U, E> by applying a function to a contained Ok value, leaving an Err value untouched.
+     * This function can be used to compose the results of two functions.
+     * 
+     * @param {function} op
+     * @returns {Result}
+     */
+    map(op) {};
+
+    /**
+     * Maps a Result<T, E> to Result<T, F> by applying a function to a contained Err value, leaving an Ok value untouched.
+     * This function can be used to pass through a successful result while handling an error.
+     * 
+     * @param {function} op
+     * @returns {Result}
+     */
+    mapErr(op) {};
+    
+    /**
+     * Returns an iterator over the possibly contained value.
+     * The iterator yields one value if the result is Ok, otherwise none.
+     * 
+     * @returns {Iterable.<*>}
+     */
+    iter() {};
+
+    /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
      *
      * @param {*} val
@@ -96,7 +122,9 @@ module.exports = class Result {
 
     /**
      * Returns `val` if the result is Err, otherwise returns the Ok value of itself.
+     * Since there are no strict types in JS, this method and unwrapOr are identical.
      *
+     * @alias unwrapOr
      * @param {*} val
      * @returns {*}
      */
@@ -105,7 +133,9 @@ module.exports = class Result {
     /**
      * Calls `resultEmitter` if the result is Err, otherwise returns the Ok value of itself.
      * This function can be used for control flow based on result values.
+     * Since there are no strict types in JS, this method and unwrapOrElse are identical.
      *
+     * @alias unwrapOrElse
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
@@ -120,6 +150,14 @@ module.exports = class Result {
     unwrap() {};
 
     /**
+     * Unwraps a result, yielding the content of an Err.
+     * 
+     * @throws if the value is an Ok, with a custom panic message provided by the Ok's value.
+     * @returns {*}
+     */
+    unwrapErr() {};
+
+    /**
      * Unwraps a result, yielding the content of an Ok.
      *
      * @throws if the value is an Err, with a message including the passed message, and the content of the Err.
@@ -127,6 +165,15 @@ module.exports = class Result {
      * @returns {*}
      */
     expect(msg) {};
+
+    /**
+     * Unwraps a result, yielding the content of an Err.
+     *
+     * @throws if the value is an Ok, with a panic message including the passed message, and the content of the Ok.
+     * @param {String} msg
+     * @returns {*}
+     */
+    expectErr(msg) {};
 
     /**
      * JS convenience then-like handler (sync)
