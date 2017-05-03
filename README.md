@@ -13,8 +13,7 @@ In order to make a user aware of the risk of failure, monad error management was
 One of the most prominent usages of such a result system is `core::result::Result` of the programming language Rust.
 
 This module is based on the Rust implementation, but brings some changes in order to better use it in JS.
-One of the major differences is, that there are no `Ok()` and `Err()`.
-Instead, certain methods can be used to determine the Result type and value or error.
+One of the major differences is that result-js uses lowerCamelCase instead of snake_case.
 
 
 ## Installation
