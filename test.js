@@ -66,7 +66,7 @@ TAP.test('Error Tests', $t => {
     $t.throws(e.unwrap.bind(e), 'Check Error.unwrap');
     $t.throws(e.expect.bind(e, 'ERROR'), 'Check Error.expect');
     $t.equal(e.and('NYAN').toString(), 'TEST', 'Check Error.and');
-    $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'Error: TEST', 'Check Error.andThen');
+    $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'TEST', 'Check Error.andThen');
     $t.equal(e.or('FAIL'), 'FAIL', 'Check Error.or');
     $t.equal(e.orElse($err => $err.toString() + '2').toString(), 'TEST2', 'Check Error.orElse');
 
@@ -99,7 +99,7 @@ TAP.test('Control Flow Tests', $t => {
     $t.equal(Result.fromSuccess(2).andThen(err).orElse(err).or(13), 13, 'Success.andThen.orElse.unwrap Test err err');
 
     $t.equal(Result.fromError(3).orElse(sq).unwrap(), 9, 'Error.orElse.unwrap Test sq');
-    $t.equal(Result.fromError(3).andThen(sq).toString(), 'Error: 3', 'Error.andThen Test sq');
+    $t.equal(Result.fromError(3).andThen(sq).toString(), '3', 'Error.andThen Test sq');
 
     $t.end();
 });
