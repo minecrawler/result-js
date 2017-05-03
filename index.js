@@ -5,6 +5,7 @@ require('./src/result._init.c');
 require('./src/result.and.c');
 require('./src/result.andThen.c');
 require('./src/result.expect.c');
+require('./src/result.expectErr.c');
 require('./src/result.fromError.c');
 require('./src/result.fromSuccess.c');
 require('./src/result.fromTry.c');

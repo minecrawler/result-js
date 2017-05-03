@@ -24,7 +24,7 @@ TAP.test('Create Results', $t => {
 
 TAP.test('Success Tests', $t => {
 
-    $t.plan(11);
+    $t.plan(12);
 
     const s = Result.fromSuccess('TEST');
     const s_try = Result.fromTry(() => 5);
@@ -33,6 +33,7 @@ TAP.test('Success Tests', $t => {
     $t.notOk(s.isErr(), '!Success.notOk');
 
     $t.equal(s.unwrap(), 'TEST', 'Check Success.unwrap');
+    $t.throws(s.unwrapErr.bind(s), 'Check Ok.unwrapErr');
     $t.equal(s.expect(), 'TEST', 'Check Success.expect');
     $t.equal(s.and('NYAN'), 'NYAN', 'Check Success.and');
     $t.equal(s.andThen($v => $v.toString() + '2'), 'TEST2', 'Check Success.andThen');
@@ -58,7 +59,6 @@ TAP.test('Error Tests', $t => {
     $t.plan(13);
 
     const e = Result.fromError('TEST');
-    const k = Result.fromSuccess('TEST');
     const e_try = Result.fromTry(() => { throw 'uh oh'; });
 
     $t.notOk(e.isOk(), '!Error.isOK');
@@ -66,8 +66,8 @@ TAP.test('Error Tests', $t => {
 
     $t.throws(e.unwrap.bind(e), 'Check Error.unwrap');
     $t.equal(e.unwrapErr(), 'TEST', 'Check Error.unwrapErr');
-    $t.throws(k.unwrapErr.bind(k), 'Check Ok.unwrapErr');
     $t.throws(e.expect.bind(e, 'ERROR'), 'Check Error.expect');
+    $t.equal(e.expectErr(), 'TEST', 'Check Error.expectErr');
     $t.equal(e.and('NYAN').toString(), 'TEST', 'Check Error.and');
     $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'TEST', 'Check Error.andThen');
     $t.equal(e.or('FAIL'), 'FAIL', 'Check Error.or');

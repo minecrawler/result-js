@@ -167,6 +167,15 @@ module.exports = class Result {
     expect(msg) {};
 
     /**
+     * Unwraps a result, yielding the content of an Err.
+     *
+     * @throws if the value is an Ok, with a panic message including the passed message, and the content of the Ok.
+     * @param {String} msg
+     * @returns {*}
+     */
+    expectErr(msg) {};
+
+    /**
      * JS convenience then-like handler (sync)
      *
      * @param {ResultHandler} okHandler
