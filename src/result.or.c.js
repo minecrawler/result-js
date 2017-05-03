@@ -1,6 +1,11 @@
 'use strict';
 
-require('../interface/result.h').prototype.or = function ($val) {
+const hProto = require('../interface/result.h').prototype
+
+
+hProto.or = function ($val) {
 
     return this.isErr() ? $val : this._val;
 };
+
+hProto.unwrapOr = hProto.or;
