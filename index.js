@@ -18,6 +18,7 @@ require('./src/result.or.c');
 require('./src/result.orElse.c');
 require('./src/result.registerGlobals.c');
 require('./src/result.unwrap.c');
+require('./src/result.unwrapErr.c');
 
 
 module.exports = require('./interface/result.h');

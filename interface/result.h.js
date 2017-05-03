@@ -150,6 +150,14 @@ module.exports = class Result {
     unwrap() {};
 
     /**
+     * Unwraps a result, yielding the content of an Err.
+     * 
+     * @throws if the value is an Ok, with a custom panic message provided by the Ok's value.
+     * @returns {*}
+     */
+    unwrapErr() {};
+
+    /**
      * Unwraps a result, yielding the content of an Ok.
      *
      * @throws if the value is an Err, with a message including the passed message, and the content of the Err.

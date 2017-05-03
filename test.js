@@ -55,15 +55,18 @@ TAP.test('Success Tests', $t => {
 
 TAP.test('Error Tests', $t => {
 
-    $t.plan(11);
+    $t.plan(13);
 
     const e = Result.fromError('TEST');
+    const k = Result.fromSuccess('TEST');
     const e_try = Result.fromTry(() => { throw 'uh oh'; });
 
     $t.notOk(e.isOk(), '!Error.isOK');
     $t.ok(e.isErr(), 'Error.notOk');
 
     $t.throws(e.unwrap.bind(e), 'Check Error.unwrap');
+    $t.equal(e.unwrapErr(), 'TEST', 'Check Error.unwrapErr');
+    $t.throws(k.unwrapErr.bind(k), 'Check Ok.unwrapErr');
     $t.throws(e.expect.bind(e, 'ERROR'), 'Check Error.expect');
     $t.equal(e.and('NYAN').toString(), 'TEST', 'Check Error.and');
     $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'TEST', 'Check Error.andThen');
