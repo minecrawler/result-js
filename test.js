@@ -143,7 +143,7 @@ TAP.test('Misc Tests', $t => {
     });
 
     let c = 0;
-    for (const v of probe.iter()) {
+    for (const v of good.iter()) {
 
         c++;
     }
@@ -151,7 +151,7 @@ TAP.test('Misc Tests', $t => {
     $t.equal(c, 1, 'Ok.iter() Test');
 
     c = 0;
-    for (const v of probe.iter()) {
+    for (const v of bad.iter()) {
 
         c++;
     }
