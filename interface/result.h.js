@@ -78,6 +78,15 @@ module.exports = class Result {
     isErr() {};
 
     /**
+     * Maps a Result<T, E> to Result<U, E> by applying a function to a contained Ok value, leaving an Err value untouched.
+     * This function can be used to compose the results of two functions.
+     * 
+     * @param {function} op
+     * @returns {Result}
+     */
+    map(op) {};
+
+    /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
      *
      * @param {*} val
