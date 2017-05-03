@@ -106,9 +106,14 @@ TAP.test('Control Flow Tests', $t => {
 
 TAP.test('Globals Tests', $t => {
 
-    $t.plan(4);
+    $t.plan(5);
 
     Result.registerGlobals();
+
+    Ok._test = true;
+    Result.registerGlobals();
+    $t.equal(Ok._test, true, 'Check Globals Initialization');
+
     $t.equal(typeof Ok, 'function', 'Check global.Ok()');
     $t.equal(typeof Err, 'function', 'Check global.Err()');
     $t.ok(Ok('test').isOk(), 'check global.Ok isOk');
@@ -119,11 +124,12 @@ TAP.test('Globals Tests', $t => {
 
 TAP.test('Misc Tests', $t => {
 
-    $t.plan(6);
+    $t.plan(8);
 
     const good = Result.fromSuccess('test');
     const bad = Result.fromError('test');
 
+    $t.equal(good.map().unwrap(), 'test', 'Default Result.map Test on Ok');
     $t.equal(good.map($val => $val + '_ok').unwrap(), 'test_ok', 'Result.map Test on Ok');
     bad.map($val => $val + '_ok').match($v => {
 
@@ -134,6 +140,14 @@ TAP.test('Misc Tests', $t => {
     });
 
     $t.equal(good.mapErr($val => $val + '_ok').unwrap(), 'test', 'Result.mapErr Test on Ok');
+    bad.mapErr().match($v => {
+
+        $t.fail('Default Result.mapErr Test on Err');
+    }, $e => {
+
+        $t.equal($e, 'test', 'Default Result.mapErr Test on Err');
+    });
+    
     bad.mapErr($val => $val + '_ok').match($v => {
 
         $t.fail('Result.mapErr Test on Err');
