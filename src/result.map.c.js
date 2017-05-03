@@ -1,14 +1,15 @@
 'use strict';
 
-const hProto = require('../interface/result.h').prototype;
+const Result = require('../interface/result.h');
+const hProto = Result.prototype;
 
 
 hProto.map = function ($op = $ => $) {
 
     if (this.isOk()) {
 
-        this._val = $op(this._val);
+        return Result.fromSuccess($op(this._val));
     }
 
-    return this;
+    return Result.fromError(this._err);
 };
