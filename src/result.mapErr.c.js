@@ -4,7 +4,9 @@ const Result = require('../interface/result.h');
 const hProto = Result.prototype;
 
 
-hProto.mapErr = function ($op = $ => $) {
+hProto.mapErr = function ($op) {
+
+    if (typeof $op === 'undefined') $op = $ => $;
 
     if (this.isErr()) {
 
