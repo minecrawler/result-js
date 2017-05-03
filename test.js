@@ -65,7 +65,7 @@ TAP.test('Error Tests', $t => {
 
     $t.throws(e.unwrap.bind(e), 'Check Error.unwrap');
     $t.throws(e.expect.bind(e, 'ERROR'), 'Check Error.expect');
-    $t.equal(e.and('NYAN').toString(), 'Error: TEST', 'Check Error.and');
+    $t.equal(e.and('NYAN').toString(), 'TEST', 'Check Error.and');
     $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'Error: TEST', 'Check Error.andThen');
     $t.equal(e.or('FAIL'), 'FAIL', 'Check Error.or');
     $t.equal(e.orElse($err => $err.toString() + '2').toString(), 'TEST2', 'Check Error.orElse');
