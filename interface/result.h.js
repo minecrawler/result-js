@@ -1,5 +1,34 @@
 'use strict';
 
+//                                          ...
+//                       s,                .                    .s
+//                        ss,              . ..               .ss
+//                        'SsSs,           ..  .           .sSsS'
+//                         sSs'sSs,        .   .        .sSs'sSs
+//                          sSs  'sSs,      ...      .sSs'  sSs
+//                           sS,    'sSs,         .sSs'    .Ss
+//                           'Ss       'sSs,   .sSs'       sS'
+//                  ...       sSs         ' .sSs'         sSs       ...
+//                 .           sSs       .sSs' ..,       sSs       .
+//                 . ..         sS,   .sSs'  .  'sSs,   .Ss        . ..
+//                 ..  .        'Ss .Ss'     .     'sSs. ''        ..  .
+//                 .   .         sSs '       .        'sSs,        .   .
+//                  ...      .sS.'sSs        .        .. 'sSs,      ...
+//                        .sSs'    sS,     .....     .Ss    'sSs,
+//                     .sSs'       'Ss       .       sS'       'sSs,
+//                  .sSs'           sSs      .      sSs           'sSs,
+//               .sSs'____________________________ sSs ______________'sSs,
+//            .sSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS'.Ss SSSSSSSSSSSSSSSSSSSSSs,
+//                                    ...         sS'
+//                                     sSs       sSs
+//                                      sSs     sSs
+//                                       sS,   .Ss
+//                                       'Ss   sS'
+//                                        sSs sSs
+//                                         sSsSs
+//                                          sSs
+//                                           s
+
 /**
  * This Callback is used to produce a final Result
  *
