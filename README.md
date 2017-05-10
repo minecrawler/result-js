@@ -323,14 +323,6 @@ module.exports = class Result {
      * @param {ResultHandler} errHandler
      */
     match(okHandler, errHandler) {};
-
-    /**
-     * JS convenience then-like handler (async)
-     *
-     * @param {ResultHandler} okHandler
-     * @param {ResultHandler} errHandler
-     */
-    then(okHandler, errHandler) {};
 };
 
 /**
