@@ -62,7 +62,7 @@ TAP.test('Create Results', $t => {
 
 TAP.test('Success Tests', $t => {
 
-    $t.plan(13);
+    $t.plan(15);
 
     const s = Result.fromSuccess('TEST');
     const s_try = Result.fromTry(() => 5);
@@ -78,6 +78,10 @@ TAP.test('Success Tests', $t => {
     $t.equal(s.andThen($v => $v.toString() + '2'), 'TEST2', 'Check Success.andThen');
     $t.equal(s.or('FAIL'), 'TEST', 'Check Success.or');
     $t.equal(s.orElse($err => $err.toString() + '2'), 'TEST', 'Check Success.orElse');
+    s.node((err, val) => {
+        $t.equal(err, null, 'Check Error.node err');
+        $t.equal(val, 'TEST', 'Check Error.node val');
+    });
 
     s.match($val => {
 
@@ -95,7 +99,7 @@ TAP.test('Success Tests', $t => {
 
 TAP.test('Error Tests', $t => {
 
-    $t.plan(13);
+    $t.plan(15);
 
     const e = Result.fromError('TEST');
     const e_try = Result.fromTry(() => { throw 'uh oh'; });
@@ -111,6 +115,10 @@ TAP.test('Error Tests', $t => {
     $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'TEST', 'Check Error.andThen');
     $t.equal(e.or('FAIL'), 'FAIL', 'Check Error.or');
     $t.equal(e.orElse($err => $err.toString() + '2').toString(), 'TEST2', 'Check Error.orElse');
+    e.node((err, val) => {
+        $t.equal(err, 'TEST', 'Check Error.node err');
+        $t.equal(val, null, 'Check Error.node val');
+    });
 
     e.match(() => {
 

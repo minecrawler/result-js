@@ -13,6 +13,7 @@ require('./src/result.isErr.c');
 require('./src/result.isOk.c');
 require('./src/result.map.c');
 require('./src/result.mapErr.c');
+require('./src/result.node.c');
 require('./src/result.iter.c');
 require('./src/result.match.c');
 require('./src/result.or.c');
