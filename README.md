@@ -16,6 +16,8 @@ This module is based on the Rust implementation, but brings some changes in orde
 One of the major differences is that result-js uses lowerCamelCase instead of snake_case.
 Additionally, the methods `ok()`, `err()` and `unwrapOrDefault()` were not implemented, since the former require a Option-dependency and the latter can easily be worked around by providing a default value yourself (using `Result.or()`).
 
+`result-js` does not have any dependencies and conducts unit tests and coverage with `TAP` and `coveralls`.
+
 **You can find the complete API, as defined in code, below the examples!**
 
 
@@ -156,6 +158,8 @@ console.log(
 ## API
 
 All methods work just as described in the [Rust documentation](https://doc.rust-lang.org/core/result/enum.Result.html).
+The interface below includes Exceptions, however all methods are fully implemented and will not throw.
+The Exceptions are in place in order to provide you a clear, non-cluttered API overview.
 
 ```js
 /**
@@ -163,13 +167,13 @@ All methods work just as described in the [Rust documentation](https://doc.rust-
  *
  * @type {Result}
  */
-module.exports = class Result {
+class Result {
 
     /**
      * Create new Result from either a value or an error
      * Leave the one you don't need undefined
      * You have to pass something to exactly one of the two
-     * 
+     *
      * @param {*} val
      * @param {*} err
      */
@@ -181,7 +185,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {Result}
      */
-    static fromSuccess(val) {};
+    static fromSuccess(val) { throw new Error ('Not Implemented: Result.fromSuccess'); };
 
     /**
      * Create error Result with a return value.
@@ -189,7 +193,7 @@ module.exports = class Result {
      * @param {*} err
      * @returns {Result}
      */
-    static fromError(err) {};
+    static fromError(err) { throw new Error ('Not Implemented: Result.fromError'); };
 
     /**
      * Similar to Rust's `try!`, but only returns a {Result} to the caller
@@ -197,52 +201,52 @@ module.exports = class Result {
      * @param {function} fun Function to execute
      * @returns {Result}
      */
-    static fromTry(fun) {};
+    static fromTry(fun) { throw new Error ('Not Implemented: Result.fromTry'); };
 
     /**
      * Register global convenience-functions Ok() and Err()
      */
-    static registerGlobals() {};
+    static registerGlobals() { throw new Error ('Not Implemented: Result.registerGlobals'); };
 
     /**
      * Returns true if the result is Ok.
      *
      * @returns {boolean}
      */
-    isOk() {};
+    isOk() { throw new Error ('Not Implemented: Result.isOk'); };
 
     /**
      * Returns true if the result is Err.
      *
      * @returns {boolean}
      */
-    isErr() {};
+    isErr() { throw new Error ('Not Implemented: Result.isErr'); };
 
     /**
      * Maps a Result<T, E> to Result<U, E> by applying a function to a contained Ok value, leaving an Err value untouched.
      * This function can be used to compose the results of two functions.
-     * 
+     *
      * @param {function} op
      * @returns {Result}
      */
-    map(op) {};
+    map(op) { throw new Error ('Not Implemented: Result.map'); };
 
     /**
      * Maps a Result<T, E> to Result<T, F> by applying a function to a contained Err value, leaving an Ok value untouched.
      * This function can be used to pass through a successful result while handling an error.
-     * 
+     *
      * @param {function} op
      * @returns {Result}
      */
-    mapErr(op) {};
-    
+    mapErr(op) { throw new Error ('Not Implemented: Result.mapErr'); };
+
     /**
      * Returns an iterator over the possibly contained value.
      * The iterator yields one value if the result is Ok, otherwise none.
-     * 
+     *
      * @returns {Iterable.<*>}
      */
-    iter() {};
+    iter() { throw new Error ('Not Implemented: Result.iter'); };
 
     /**
      * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
@@ -250,7 +254,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {*}
      */
-    and(val) {};
+    and(val) { throw new Error ('Not Implemented: Result.and'); };
 
     /**
      * Calls `resultEmitter` if the result is Ok, otherwise returns the Err value of itself.
@@ -259,7 +263,7 @@ module.exports = class Result {
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
-    andThen(resultEmitter) {};
+    andThen(resultEmitter) { throw new Error ('Not Implemented: Result.andThen'); };
 
     /**
      * Returns `val` if the result is Err, otherwise returns the Ok value of itself.
@@ -269,7 +273,7 @@ module.exports = class Result {
      * @param {*} val
      * @returns {*}
      */
-    or(val) {};
+    or(val) { throw new Error ('Not Implemented: Result.or'); };
 
     /**
      * Calls `resultEmitter` if the result is Err, otherwise returns the Ok value of itself.
@@ -280,7 +284,7 @@ module.exports = class Result {
      * @param {ResultEmitter} resultEmitter
      * @returns {*}
      */
-    orElse(resultEmitter) {};
+    orElse(resultEmitter) { throw new Error ('Not Implemented: Result.orElse'); };
 
     /**
      * Unwraps a result, yielding the content of an Ok.
@@ -288,15 +292,15 @@ module.exports = class Result {
      * @throws if the value is an Err, with a message provided by the Err's value.
      * @returns {*}
      */
-    unwrap() {};
+    unwrap() { throw new Error ('Not Implemented: Result.unwrap'); };
 
     /**
      * Unwraps a result, yielding the content of an Err.
-     * 
+     *
      * @throws if the value is an Ok, with a custom panic message provided by the Ok's value.
      * @returns {*}
      */
-    unwrapErr() {};
+    unwrapErr() { throw new Error ('Not Implemented: Result.unwrapErr'); };
 
     /**
      * Unwraps a result, yielding the content of an Ok.
@@ -305,7 +309,7 @@ module.exports = class Result {
      * @param {String} msg
      * @returns {*}
      */
-    expect(msg) {};
+    expect(msg) { throw new Error ('Not Implemented: Result.expect'); };
 
     /**
      * Unwraps a result, yielding the content of an Err.
@@ -314,7 +318,7 @@ module.exports = class Result {
      * @param {String} msg
      * @returns {*}
      */
-    expectErr(msg) {};
+    expectErr(msg) { throw new Error ('Not Implemented: Result.expectErr'); };
 
     /**
      * JS convenience then-like handler (sync)
@@ -322,7 +326,18 @@ module.exports = class Result {
      * @param {ResultHandler} okHandler
      * @param {ResultHandler} errHandler
      */
-    match(okHandler, errHandler) {};
+    match(okHandler, errHandler) { throw new Error ('Not Implemented: Result.match'); };
+
+    /**
+     * JS convenience method to handle a result NodeJS-style
+     * Example:
+     * Result.fromError('uh oh!').node((err, val) => {
+     *   // do sth.
+     * });
+     *
+     * @param {NodeJSStyleHandler} handler
+     */
+    node(handler) { throw 'Not Implemented: Result.node'; };
 };
 
 /**
@@ -341,4 +356,12 @@ module.exports = class Result {
  * @param {*} ret
  *   `ret` will either contain the result or the error, depending on the parameter position of the callback
  */
+
+ /**
+  * This callback is used as NodeJS-style handler
+  *
+  * @callback NodeJSStyleHandler
+  * @oaram {*} err null if no error occurred
+  * @param {*} val null if an error occurred
+  */
 ```
