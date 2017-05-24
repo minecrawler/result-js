@@ -2,9 +2,47 @@
 
 'use strict';
 
-const Result = require('.');
 const TAP    = require('tap');
 
+
+TAP.test('Test interface', $t => {
+
+    const _interface = require('./interface/result.h');
+    require('./src/result._init.c');
+    const tmp = new _interface('');
+
+    const funs = Object.getOwnPropertyNames(_interface).concat(Object.getOwnPropertyNames(_interface.prototype));
+
+    $t.plan(funs.length);
+
+    funs.forEach($fun => {
+
+        if ($fun === 'constructor' || $fun === '_init') {
+
+            $t.pass($fun + ' is always defined');
+            return;
+        }
+
+        if (typeof tmp[$fun] === 'function') {
+
+            $t.throws(tmp[$fun].bind(tmp), 'Check Interface ' + $fun + ' throw');
+            return;
+        }
+
+        if (typeof _interface[$fun] === 'function') {
+
+            $t.throws(_interface[$fun].bind(tmp), 'Check Interface ' + $fun + ' throw');
+            return;
+        }
+
+        $t.pass($fun + ' is not a function');
+    });
+
+    $t.end();
+});
+
+
+const Result = require('.');
 
 TAP.test('Create Results', $t => {
 
@@ -24,7 +62,7 @@ TAP.test('Create Results', $t => {
 
 TAP.test('Success Tests', $t => {
 
-    $t.plan(13);
+    $t.plan(15);
 
     const s = Result.fromSuccess('TEST');
     const s_try = Result.fromTry(() => 5);
@@ -40,6 +78,10 @@ TAP.test('Success Tests', $t => {
     $t.equal(s.andThen($v => $v.toString() + '2'), 'TEST2', 'Check Success.andThen');
     $t.equal(s.or('FAIL'), 'TEST', 'Check Success.or');
     $t.equal(s.orElse($err => $err.toString() + '2'), 'TEST', 'Check Success.orElse');
+    s.node((err, val) => {
+        $t.equal(err, null, 'Check Error.node err');
+        $t.equal(val, 'TEST', 'Check Error.node val');
+    });
 
     s.match($val => {
 
@@ -57,7 +99,7 @@ TAP.test('Success Tests', $t => {
 
 TAP.test('Error Tests', $t => {
 
-    $t.plan(13);
+    $t.plan(15);
 
     const e = Result.fromError('TEST');
     const e_try = Result.fromTry(() => { throw 'uh oh'; });
@@ -73,6 +115,10 @@ TAP.test('Error Tests', $t => {
     $t.equal(e.andThen($v => $v.toString() + '2').toString(), 'TEST', 'Check Error.andThen');
     $t.equal(e.or('FAIL'), 'FAIL', 'Check Error.or');
     $t.equal(e.orElse($err => $err.toString() + '2').toString(), 'TEST2', 'Check Error.orElse');
+    e.node((err, val) => {
+        $t.equal(err, 'TEST', 'Check Error.node err');
+        $t.equal(val, null, 'Check Error.node val');
+    });
 
     e.match(() => {
 
@@ -135,7 +181,7 @@ TAP.test('Misc Tests', $t => {
 
     $t.equal(good.map().unwrap(), 'test', 'Default Result.map Test on Ok');
     $t.equal(good.map($val => $val + '_ok').unwrap(), 'test_ok', 'Result.map Test on Ok');
-    bad.map($val => $val + '_ok').match($v => {
+    bad.map($val => $val + '_ok').match(() => {
 
         $t.fail('Result.map Test on Err');
     }, $e => {
@@ -144,7 +190,7 @@ TAP.test('Misc Tests', $t => {
     });
 
     $t.equal(good.mapErr($val => $val + '_ok').unwrap(), 'test', 'Result.mapErr Test on Ok');
-    bad.mapErr().match($v => {
+    bad.mapErr().match(() => {
 
         $t.fail('Default Result.mapErr Test on Err');
     }, $e => {
@@ -152,7 +198,7 @@ TAP.test('Misc Tests', $t => {
         $t.equal($e, 'test', 'Default Result.mapErr Test on Err');
     });
     
-    bad.mapErr($val => $val + '_ok').match($v => {
+    bad.mapErr($val => $val + '_ok').match(() => {
 
         $t.fail('Result.mapErr Test on Err');
     }, $e => {
@@ -161,19 +207,13 @@ TAP.test('Misc Tests', $t => {
     });
 
     let c = 0;
-    for (const v of good.iter()) {
-
-        c++;
-    }
-
+    const goodIterArr = Array.from(good.iter());
+    goodIterArr.forEach(() => c++);
     $t.equal(c, 1, 'Ok.iter() Test');
 
     c = 0;
-    for (const v of bad.iter()) {
-
-        c++;
-    }
-
+    const badIterArr = Array.from(bad.iter());
+    badIterArr.forEach(() => c++);
     $t.equal(c, 0, 'Err.iter() Test');
 
     $t.end();
