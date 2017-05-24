@@ -1,6 +1,6 @@
 {
   "name": "result-js",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Rusty Monad Results for JS",
   "author": {
     "email": "me@marco-alka.de",
@@ -18,7 +18,9 @@
   "keywords": [
     "Rust",
     "Result",
-    "Monad"
+    "Monad",
+    "Either",
+    "Maybe"
   ],
   "license": "MPL-2.0",
   "main": "index.js",
@@ -35,5 +37,8 @@
   },
   "scripts": {
     "test": "tap test.js --coverage --coverage-report=lcov"
+  },
+  "engines" : {
+    "node" : ">=4.0.0"
   }
 }
