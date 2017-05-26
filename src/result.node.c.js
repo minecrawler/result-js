@@ -12,6 +12,6 @@ hProto.node = function ($handler) {
 
     $handler(
         this.isErr() ? this._err : null,
-        this.isOk()  ? this._val : null,
+        this.isOk()  ? this._val : null
     );
 };
