@@ -20,7 +20,7 @@ require('../interface/result.h').prototype._init = function ($val, $err) {
     }
     else {
 
-        this._val = $val || null;
+        this._val = $val === 0 ? 0 : $val || null;
 
         if (typeof $err === 'undefined' || $err === null) {
 
