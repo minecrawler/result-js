@@ -4,11 +4,10 @@ const hProto = require('../interface/result.h').prototype;
 const sym = require('../interface/result-sym.h');
 
 
-hProto.or = function ($val) {
+hProto.unwrapOr = function ($val) {
     if (!this[sym.isOk]) {
-        this[sym.value] = $val;
-        this[sym.isOk] = true;
+        return $val;
     }
 
-    return this;
+    return this[sym.value];
 };

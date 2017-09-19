@@ -1,9 +1,14 @@
 'use strict';
 
-const h = require('../interface/result.h');
+const H = require('../interface/result.h');
+const sym = require('../interface/result-sym.h');
 
 
-h.fromError = function ($err) {
+H.fromError = function ($err) {
+    const result = new H();
 
-    return new h(undefined, $err);
+    result[sym.isOk] = false;
+    result[sym.value] = $err;
+
+    return result;
 };
