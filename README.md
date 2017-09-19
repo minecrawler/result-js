@@ -1,4 +1,6 @@
 # result-js
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/minecrawler/result-js.svg)](https://greenkeeper.io/)
 Rusty Monad Results for JS
 ---
 
