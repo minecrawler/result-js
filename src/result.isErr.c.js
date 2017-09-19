@@ -1,6 +1,8 @@
 'use strict';
 
-require('../interface/result.h').prototype.isErr = function () {
+const sym = require('../interface/result-sym.h');
 
-    return this._err !== null;
+
+require('../interface/result.h').prototype.isErr = function () {
+    return !this[sym.isOk];
 };

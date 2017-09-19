@@ -39,6 +39,15 @@
  */
 
 /**
+ * This Callback is used to produce a final Value
+ *
+ * @callback ValueEmitter
+ * @param {*} val
+ *   `val` will contain the result of {Result}.
+ * @returns {*}
+ */
+
+/**
  * This Callback is used as a return-handler
  *
  * @callback ResultHandler
@@ -60,17 +69,6 @@
  * @type {Result}
  */
 module.exports = class Result {
-
-    /**
-     * Create new Result from either a value or an error
-     * Leave the one you don't need undefined
-     * You have to pass something to exactly one of the two
-     * 
-     * @param {*} val
-     * @param {*} err
-     */
-    constructor (val, err) { this._init(val, err); };
-
     /**
      * Create success Result with a return value.
      *
@@ -141,40 +139,36 @@ module.exports = class Result {
     iter() { throw new Error ('Not Implemented: Result.iter'); };
 
     /**
-     * Returns `val` if the result is Ok, otherwise returns the Err value of itself.
+     * Returns `Ok(val)` if the result is Ok, otherwise returns `Err(err)` of itself.
      *
      * @param {*} val
-     * @returns {*}
+     * @returns {Result}
      */
     and(val) { throw new Error ('Not Implemented: Result.and'); };
 
     /**
-     * Calls `resultEmitter` if the result is Ok, otherwise returns the Err value of itself.
+     * Calls `resultEmitter` if the result is Ok, otherwise returns `Err(err)` value of itself.
      * This function can be used for control flow based on Result values.
      *
      * @param {ResultEmitter} resultEmitter
-     * @returns {*}
+     * @returns {Result}
      */
     andThen(resultEmitter) { throw new Error ('Not Implemented: Result.andThen'); };
 
     /**
-     * Returns `val` if the result is Err, otherwise returns the Ok value of itself.
-     * Since there are no strict types in JS, this method and unwrapOr are identical.
+     * Returns `Ok(val)` if the result is Err, otherwise returns `Ok(ok)` of itself.
      *
-     * @alias unwrapOr
      * @param {*} val
-     * @returns {*}
+     * @returns {Result}
      */
     or(val) { throw new Error ('Not Implemented: Result.or'); };
 
     /**
-     * Calls `resultEmitter` if the result is Err, otherwise returns the Ok value of itself.
+     * Calls `resultEmitter` if the result is Err, otherwise returns the `Ok(ok)` value of itself.
      * This function can be used for control flow based on result values.
-     * Since there are no strict types in JS, this method and unwrapOrElse are identical.
      *
-     * @alias unwrapOrElse
      * @param {ResultEmitter} resultEmitter
-     * @returns {*}
+     * @returns {Result}
      */
     orElse(resultEmitter) { throw new Error ('Not Implemented: Result.orElse'); };
 
@@ -187,12 +181,44 @@ module.exports = class Result {
     unwrap() { throw new Error ('Not Implemented: Result.unwrap'); };
 
     /**
+     * Unwraps a result, yielding the content of optb. Else it throws.
+     *
+     * @param {*} optb
+     * @return {*}
+     */
+    unwrapAnd(optb) { throw new Error ('Not Implemented: Result.unwrapAnd'); };
+
+    /**
+     * Unwraps a result, calling valEmitter with its value. If the value is an Err then it throws.
+     *
+     * @param {ValueEmitter} valEmitter
+     * @return {*}
+     */
+    unwrapAndThen(valEmitter) { throw new Error ('Not Implemented: Result.unwrapAndThen'); };
+
+    /**
      * Unwraps a result, yielding the content of an Err.
      * 
      * @throws if the value is an Ok, with a custom panic message provided by the Ok's value.
      * @returns {*}
      */
     unwrapErr() { throw new Error ('Not Implemented: Result.unwrapErr'); };
+
+    /**
+     * Unwraps a result, yielding the content of an Ok. Else it returns optb.
+     *
+     * @param {*} optb
+     * @return {*}
+     */
+    unwrapOr(optb) { throw new Error ('Not Implemented: Result.unwrapOr'); };
+
+    /**
+     * Unwraps a result, yielding the content of an Ok. If the value is an Err then it calls valEmitter with its value.
+     *
+     * @param {ValueEmitter} valEmitter
+     * @return {*}
+     */
+    unwrapOrElse(valEmitter) { throw new Error ('Not Implemented: Result.unwrapOrElse'); };
 
     /**
      * Unwraps a result, yielding the content of an Ok.

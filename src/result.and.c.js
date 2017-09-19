@@ -1,6 +1,13 @@
 'use strict';
 
-require('../interface/result.h').prototype.and = function ($val) {
+const H = require('../interface/result.h').prototype;
+const sym = require('../interface/result-sym.h');
 
-    return this.isOk() ? $val : this._err;
+
+H.and = function ($val) {
+    if (this[sym.isOk]) {
+        this[sym.value] = $val;
+    }
+
+    return this;
 };

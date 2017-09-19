@@ -1,11 +1,12 @@
 'use strict';
 
+const sym = require('../interface/result-sym.h');
+
+
 require('../interface/result.h').prototype.unwrapErr = function () {
-
-    if (this.isErr()) {
-
-        return this._err;
+    if (!this[sym.isOk]) {
+        return this[sym.value];
     }
 
-    throw new Error(this._ok);
+    throw new Error(this[sym.value]);
 };

@@ -1,16 +1,20 @@
 'use strict';
 
-const h = require('../interface/result.h');
+const H = require('../interface/result.h');
+const sym = require('../interface/result-sym.h');
 
 
-h.fromTry = function ($fun) {
+H.fromTry = function ($fun) {
+    const result = new H();
 
     try {
-
-        return h.fromSuccess($fun());
+        result[sym.value] = $fun();
+        result[sym.isOk] = true;
     }
     catch ($err) {
-
-        return h.fromError($err);
+        result[sym.value] = $err;
+        result[sym.isOk] = false;
     }
+
+    return result;
 };
