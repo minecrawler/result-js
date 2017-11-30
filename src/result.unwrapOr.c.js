@@ -5,9 +5,5 @@ const sym = require('../interface/result-sym.h');
 
 
 hProto.unwrapOr = function ($val) {
-    if (!this[sym.isOk]) {
-        return $val;
-    }
-
-    return this[sym.value];
+    return this.or($val).unwrap();
 };
