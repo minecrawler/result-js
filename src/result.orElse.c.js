@@ -5,9 +5,8 @@ const sym = require('../interface/result-sym.h');
 
 
 hProto.orElse = function ($resultEmitter) {
-    if (!this[sym.isOk]) {
-        return hProto.fromTry($resultEmitter(this[sym.value]));
-    }
-
-    return this;
+    return this[sym.isOk]
+        ? this
+        : hProto.fromTry($resultEmitter(this[sym.value]))
+    ;
 };
