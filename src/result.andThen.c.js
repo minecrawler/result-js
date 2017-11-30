@@ -1,13 +1,13 @@
 'use strict';
 
-const H = require('../interface/result.h').prototype;
+const h = require('../interface/result.h');
+const hProto = h.prototype;
 const sym = require('../interface/result-sym.h');
 
 
-H.andThen = function ($resultEmitter) {
-    if (this[sym.isOk]) {
-        this[sym.value] = $resultEmitter(this[sym.value]);
-    }
-
-    return this;
+hProto.andThen = function ($resultEmitter) {
+    return this[sym.isOk]
+        ? h.fromTry($resultEmitter(this[sym.value]))
+        : this
+    ;
 };
