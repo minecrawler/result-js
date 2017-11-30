@@ -7,7 +7,7 @@ const sym = require('../interface/result-sym.h');
 
 hProto.andThen = function ($resultEmitter) {
     return this[sym.isOk]
-        ? h.fromTry($resultEmitter(this[sym.value]))
+        ? h.fromTry(() => $resultEmitter(this[sym.value]))
         : this
     ;
 };
