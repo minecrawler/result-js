@@ -1,6 +1,6 @@
 {
   "name": "result-js",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Rusty Monad Results for JS",
   "author": {
     "email": "me@marco-alka.de",
@@ -12,8 +12,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "coveralls": "^2.11.15",
-    "tap": "^10.3.2"
+    "coveralls": "^3.0.0",
+    "tap": "^11.0.0"
   },
   "keywords": [
     "Rust",
