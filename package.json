@@ -13,7 +13,7 @@
   "dependencies": {},
   "devDependencies": {
     "coveralls": "^3.0.0",
-    "tap": "^11.0.0"
+    "tap": "^12.6.3"
   },
   "keywords": [
     "Rust",
